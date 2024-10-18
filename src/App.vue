@@ -9,17 +9,17 @@
                     <li class="header_nav-item"><a href="#" @click.prevent="changePage('TrangChu')"><img src="./assets/pic/logo.png" alt=""></a></li>
                     <li class="header_nav-item"><a href="#" @click.prevent="changePage('TrangChu')"><i class="fa fa-home" aria-hidden="true"></i> HOME</a></li>
                     <li class="header_nav-item"><a href="#" @click.prevent="changePage('SanPham')"><i class="fa fa-shopping-bag" aria-hidden="true"></i> SHOP</a></li>
-                    <li class="header_nav-item"><a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"></i> FORUMS</a></li>
-                    <li class="header_nav-item"><a href="#"><i class="fa fa-windows" aria-hidden="true"></i> PHẦN MỀM</a>
+                    <li class="header_nav-item"><a href="#" @click.prevent="changePage('TrangForums')"><i class="fa fa-newspaper-o" aria-hidden="true"></i> FORUMS</a></li>
+                    <li class="header_nav-item"><a href="#" @click.prevent="changePage('PhanMem')"><i class="fa fa-windows" aria-hidden="true"></i> PHẦN MỀM</a>
                         <ul class="header_nav-submenu">
-                            <li class="header_nav-item"><a href="#">Windows - Ghost</a></li>
-                            <li class="header_nav-item"><a href="#">Office</a></li>
+                            <li class="header_nav-item"><a href="#" @click.prevent="changePage('WindowsGhost')">Windows - Ghost</a></li>
+                            <li class="header_nav-item"><a href="#" @click.prevent="changePage('OfficeAll')">Office</a></li>
                             <li class="header_nav-item"><a href="#">Diệt Virut</a></li>
                             <li class="header_nav-item"><a href="#">Adobe</a></li>
                         </ul>
                     </li>
-                    <li class="header_nav-item"><a href="#"><i class="fa fa-gamepad" aria-hidden="true"></i> GAME HOT</a></li>
-                    <li class="header_nav-item"><a href="#"><i class="fa fa-weixin" aria-hidden="true"></i> BLOG</a></li>
+                    <li class="header_nav-item"><a href="#" @click.prevent="changePage('GameHot')"><i class="fa fa-gamepad" aria-hidden="true"></i> GAME HOT</a></li>
+                    <li class="header_nav-item"><a href="#" @click.prevent="changePage('TrangBlog')"><i class="fa fa-weixin" aria-hidden="true"></i> BLOG</a></li>
                 </ul>
                 <ul class="header_nav-list">
                     <li class="header_nav-item"><a href="#" @click.prevent="changePage('GioHang')"><i class="fa fa-shopping-cart" aria-hidden="true"></i> GIỎ HÀNG ({{ cart.length }})</a></li>
@@ -32,7 +32,13 @@
     <div>
       <trang-chu v-if="currentPage === 'TrangChu'" @changePage="changePage" @addToCart="addToCart" />
       <san-pham v-if="currentPage === 'SanPham'" @addToCart="addToCart" />
-      <gio-hang v-if="currentPage === 'GioHang'" :cart="cart" @removeFromCart="removeFromCart" />
+      <gio-hang v-if="currentPage === 'GioHang'" :cart="cart" @removeFromCart="removeFromCart" @clearCart="clearCartItems"/>
+      <trang-forums v-if="currentPage === 'TrangForums'"/>
+      <phan-mem v-if="currentPage === 'PhanMem'" @addToCart="addToCart" />
+      <windows-ghost v-if="currentPage === 'WindowsGhost'"/>
+      <office-all v-if="currentPage === 'OfficeAll'"/>
+      <game-hot v-if="currentPage === 'GameHot'"/>
+      <trang-blog v-if="currentPage === 'TrangBlog'"/>
       <dang-nhap v-if="currentPage==='DangNhap'" @changePage="changePage" />
       <dang-ky v-if="currentPage==='DangKy'" @changePage="changePage" />
     </div>
@@ -41,8 +47,8 @@
             <div class="lh container">
                 <div class="col-sm-3">
                     <p>Địa chỉ: Tây Mỗ, Nam Từ Liêm, Hà Nội</p>
-                    <p>SĐT: </p>
-                    <p>Email: </p>
+                    <p>SĐT: 0987654321</p>
+                    <p>Email: game1kfreedown@gmail.com</p>
                 </div>
                 <div class="col-sm-3">
                     <ul>
@@ -66,6 +72,9 @@
                 <div class="col-sm-3">
                     <ul>
                         <h5>LIÊN HỆ VỚI CHÚNG TÔI</h5>
+                        <li><a href=""><i class="fa fa-instagram" style="font-size: 48px;"></i></a>
+                            <a href="https://www.facebook.com/Cter.HuyPhan.731.110?locale=vi_VN"><i class="fa fa-facebook" style="font-size:48px;margin-left: 10px;"></i></a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -79,6 +88,12 @@ import SanPham from './components/pages/SanPham.vue';
 import GioHang from './components/pages/GioHang.vue';
 import DangNhap from './components/pages/DangNhap.vue';
 import DangKy from './components/pages/DangKy.vue';
+import TrangForums from './components/pages/TrangForums.vue';
+import PhanMem from './components/pages/PhanMem.vue';
+import WindowsGhost from './components/pages/WindowsGhost.vue';
+import OfficeAll from './components/pages/OfficeAll.vue';
+import GameHot from './components/pages/GameHot.vue';
+import TrangBlog from './components/pages/TrangBlog.vue';
 export default{
   data(){
     return{
@@ -92,6 +107,12 @@ export default{
     GioHang,
     DangNhap,
     DangKy,
+    TrangForums,
+    PhanMem,
+    WindowsGhost,
+    OfficeAll,
+    GameHot,
+    TrangBlog,
   },
   methods:{
     changePage(page) {
@@ -104,7 +125,10 @@ export default{
     },
     removeFromCart(index) {
       this.cart.splice(index, 1); // Xóa sản phẩm khỏi giỏ hàng dựa trên chỉ mục
-    }
+    },
+    clearCartItems() {
+            this.cart = []; // Clear the cart
+        },
   },
 }
 </script>

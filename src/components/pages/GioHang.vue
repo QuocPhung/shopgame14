@@ -13,7 +13,7 @@
                 </div>
                 <div class="d-flex done">
                     <h3>Tổng tiền: {{ totalCartPrice() }} đ</h3>
-                    <button class="btn">Thanh toán</button>
+                    <button class="btn" @click="clearCart">Thanh toán</button>
                 </div>
             </div>
         </div>
@@ -32,6 +32,10 @@ export default {
     methods: {
         removeFromCart(index) {
             this.$emit('removeFromCart', index); // Phát sự kiện để xóa sản phẩm khỏi giỏ hàng
+        },
+        clearCart() {
+            alert('Thanh Toán Thành Công !')
+            this.$emit('clearCart'); // Phát sự kiện để xóa tất cả sản phẩm khỏi giỏ hàng
         },
         totalCartPrice() {
             return this.cart.reduce((total, item) => {

@@ -38,6 +38,7 @@ export default{
                 alert('Vui lòng nhập đủ thông tin!')
             }else{
                     alert('Bạn đã đăng ký thành công!')
+
             }
         },
         goToProducts() {
